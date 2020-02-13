@@ -1,6 +1,5 @@
 package com.robertomanfreda.rlogger.core;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
@@ -8,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 
 @Builder
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 public class RLogger implements Logger {
     private static final Logger logger = LoggerFactory.getLogger(new Exception().getStackTrace()[1].getClassName());
 
