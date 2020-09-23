@@ -48,20 +48,12 @@ public class RLoggerMaskingLayout extends PatternLayout {
                     .mapToObj(nodeList::item)
                     .filter(node -> node.getNodeType() == Node.ELEMENT_NODE)
                     .map(node -> (Element) node)
-                    .map(element -> {
-
-                        String id = element.getElementsByTagName("id").item(0).getTextContent();
-                        String regex = element.getElementsByTagName("regex").item(0).getTextContent();
-                        String replacement = element.getElementsByTagName("replacement").item(0).getTextContent();
-                        boolean sensitive = element.getElementsByTagName("sensitive").item(0).getTextContent().equals("true");
-
-                        return Mask.builder()
-                                .id(id)
-                                .regex(regex)
-                                .replacement(replacement)
-                                .sensitive(sensitive)
-                                .build();
-                    }).collect(Collectors.toList());
+                    .map(element -> Mask.builder()
+                            .id(element.getElementsByTagName("id").item(0).getTextContent())
+                            .regex(element.getElementsByTagName("regex").item(0).getTextContent())
+                            .replacement(element.getElementsByTagName("replacement").item(0).getTextContent())
+                            .sensitive(element.getElementsByTagName("sensitive").item(0).getTextContent().equals("true"))
+                            .build()).collect(Collectors.toList());
         }
     }
 }
