@@ -1,4 +1,4 @@
-package com.robertomanfreda.rlogger.logback;
+package com.robertomanfreda.rlogger.core;
 
 import ch.qos.logback.classic.PatternLayout;
 import ch.qos.logback.classic.spi.ILoggingEvent;
