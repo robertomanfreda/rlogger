@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class LoggingQueue {
+class LoggingQueue {
 
     private static final LoggingQueue loggingQueue = new LoggingQueue();
     private static final ExecutorService executorService = Executors.newSingleThreadExecutor();
