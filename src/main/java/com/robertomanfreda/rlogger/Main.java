@@ -7,7 +7,8 @@ public class Main {
 
     public static void main(String[] args) {
         for (int i = 0; i < 10000; i++) {
-            log.debug("hello world " + i);
+            log.debug("foo: " + i);
+            log.debug("bar : " + i);
         }
     }
 }
