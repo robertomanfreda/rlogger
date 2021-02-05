@@ -25,6 +25,7 @@ public class RLoggerMaskingLayout extends PatternLayout {
             mapper.findAndRegisterModules();
 
             // Loading Masks from yaml putting them in the MasksLoader
+            // TODO I'm testing
             MasksLoader loader = mapper.readValue(new File("src/test/resources/rlogger.yaml"),
                     MasksLoader.class);
 
