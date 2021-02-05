@@ -63,6 +63,7 @@ public class RLoggerMaskingLayout extends PatternLayout {
         return outMessage;
     }
 
+    // recursive
     private static void modJsonObj(JSONObject jsonObject, String jsonKey, String jsonValue) {
         for (String key : jsonObject.keySet()) {
             if (key.equals(jsonKey)
