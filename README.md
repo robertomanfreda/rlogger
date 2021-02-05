@@ -96,10 +96,10 @@ This will be the result in our logs:
             "SortAs": "SGML",
             "GlossDef": {
                 "para": "A meta-markup "language", used to create markup languages such as DocBook.",
-                "GlossSeeAlso": "***"
+                "GlossSeeAlso": "*** This value has been obfuscated by RLogger ***"
             },
             "ID": "SGML",
-            "Acronym": "***",
+            "Acronym": "*** This value has been obfuscated by RLogger ***",
             "Abbrev": "ISO 8879:1986"
         }},
         "title": "S"
