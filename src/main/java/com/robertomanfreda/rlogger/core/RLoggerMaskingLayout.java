@@ -21,7 +21,7 @@ public class RLoggerMaskingLayout extends PatternLayout {
     private final static List<Mask> masks = new ArrayList<>();
     private final static Map<Syntax, Pattern> compiledPatterns = new HashMap<>();
 
-    // caught exception due to static initialization block
+    // static initialization block
     static {
         try {
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
