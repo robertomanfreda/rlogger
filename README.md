@@ -24,12 +24,27 @@ manner.
 In order to import RLogger in your project you have to do 3 simple steps:
 
 - Compile the project ```./mvnw -U clean package``` and import the jar in your project
-- Create a logback.xml that uses ```RLoggerMaskingLayout``` as main logback layout
-- Create a rlogger.yaml in your resource folder in order to explicit the key that you want to obfuscate
+- Create a **logback.xml** (default file not provided by the library, you have total control about it) that uses
+  ```RLoggerMaskingLayout``` as main logback layout
+- Create a **rlogger.yaml** (default file not provided by the library, you have total control about it) in your resource
+  folder in order to explicit the key that you want to obfuscate
 
 A package distributed via Maven central will be available as soon as possible! Just be patient.
 
 ---
+
+# Creating loggers
+
+To create an instance of RLogger capable to log messages at different logging levels (all SLF4J's logging levels are
+supported because RLogger basically is a custom implementation of `org.slf4j.Logger` class) you just need to use one of
+the following syntax:
+
+- The classic way  
+  `private static final RLogger logger = new Rlogger();`
+- For builder lovers   
+  `private static final RLogger logger = RLogger.builder.build();`
+- RLogger has also native support for lombok annotations  
+  `@Slf4j` at class level. I love it.
 
 # SAMPLES
 
