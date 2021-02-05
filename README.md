@@ -1,6 +1,7 @@
-#RLogger
+# What is RLogger
 
-An advanced logging library that allows you to obfuscate and manipulate sensitive data via logback configuration file.   
+RLogger is an advanced logging library that allows you to easily obfuscate and manipulate sensitive data.   
 Built on top of SLF4J and Logback.  
-All operations are executed on a dedicated thread to not slow down the Main thread.  
+All operations (logging and masking) are executed on a dedicated thread in order to not slow down the Main thread.
 
+---
