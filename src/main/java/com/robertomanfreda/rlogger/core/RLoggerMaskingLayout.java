@@ -5,6 +5,7 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -50,14 +51,18 @@ public class RLoggerMaskingLayout extends PatternLayout {
         Matcher jsonMatcher = jsonPattern.matcher(outMessage);
 
         if (jsonMatcher.find()) {
-            String json = jsonMatcher.group(2);
-            JSONObject jsonObject = new JSONObject(json);
+            try {
+                String json = jsonMatcher.group(2);
+                JSONObject jsonObject = new JSONObject(json);
 
-            for (Mask mask : masks) {
-                modJsonObj(jsonObject, mask.getTarget(), "***");
+                for (Mask mask : masks) {
+                    modJsonObj(jsonObject, mask.getTarget(), "***");
+                }
+
+                outMessage = jsonMatcher.replaceAll("$1\n" + jsonObject.toString(2) + "$3");
+            } catch (JSONException je) {
+                je.printStackTrace();
             }
-
-            outMessage = jsonMatcher.replaceAll("$1\n" + jsonObject.toString(2) + "$3");
         }
 
         return outMessage;
