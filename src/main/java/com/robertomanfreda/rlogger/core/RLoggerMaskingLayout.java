@@ -51,13 +51,13 @@ public class RLoggerMaskingLayout extends PatternLayout {
 
         if (jsonMatcher.find()) {
             String json = jsonMatcher.group(2);
-            JSONObject obj = new JSONObject(json);
+            JSONObject jsonObject = new JSONObject(json);
 
             for (Mask mask : masks) {
-                modJsonObj(obj, mask.getTarget(), "***");
+                modJsonObj(jsonObject, mask.getTarget(), "***");
             }
 
-            outMessage = jsonMatcher.replaceAll("$1\n" + obj.toString(2) + "$3");
+            outMessage = jsonMatcher.replaceAll("$1\n" + jsonObject.toString(2) + "$3");
         }
 
         return outMessage;
