@@ -25,15 +25,18 @@ public class RLoggerMaskingLayout extends PatternLayout {
             mapper.findAndRegisterModules();
 
             // Loading Masks from yaml putting them in the MasksLoader
-            MasksLoader loader = mapper.readValue(new File("src/main/resources/rlogger.yaml"),
+            MasksLoader loader = mapper.readValue(new File("src/test/resources/rlogger.yaml"),
                     MasksLoader.class);
 
             // Copying masks locally
             masks.addAll(loader.getMasks());
 
-            // Pre-compiling patterns
+            /*
+             * Pre-compiled patterns
+             */
+            // "Beauty" JSON
             compiledPatterns.addAll(masks.stream()
-                    .map(m -> Pattern.compile("(" + m.getTarget() + ")" + "(.*)(,|$|;|</)"))
+                    .map(m -> Pattern.compile("(\"" + m.getTarget() + "\")( +)?(:)( +)?(\")?(.+)?(\")?(\")(,)?(\"$)?"))
                     .collect(Collectors.toList())
             );
         } catch (IOException e) {
@@ -47,7 +50,7 @@ public class RLoggerMaskingLayout extends PatternLayout {
 
         for (Pattern pattern : compiledPatterns) {
             Matcher matcher = pattern.matcher(outMessage);
-            outMessage = matcher.replaceAll("$1 *** $3");
+            outMessage = matcher.replaceAll("$1$2$3$4$5***$7$8$9");
         }
 
         return outMessage;
