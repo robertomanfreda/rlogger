@@ -10,6 +10,14 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-class MasksLoader {
+class ConfigLoader {
+    private Config config;
     private List<Mask> masks;
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Data
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    static class Config {
+        private Integer indentFactor = 0;
+    }
 }
