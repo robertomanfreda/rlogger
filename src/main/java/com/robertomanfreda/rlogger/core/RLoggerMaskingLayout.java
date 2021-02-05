@@ -63,7 +63,7 @@ public class RLoggerMaskingLayout extends PatternLayout {
         return outMessage;
     }
 
-    private static JSONObject modJsonObj(JSONObject jsonObject, String jsonKey, String jsonValue) {
+    private static void modJsonObj(JSONObject jsonObject, String jsonKey, String jsonValue) {
         for (String key : jsonObject.keySet()) {
             if (key.equals(jsonKey)
                     && ((jsonObject.get(key) instanceof String)
@@ -72,7 +72,7 @@ public class RLoggerMaskingLayout extends PatternLayout {
                     || jsonObject.get(key) == null)))) {
 
                 jsonObject.put(key, jsonValue);
-                return jsonObject;
+                return;
             } else if (jsonObject.get(key) instanceof JSONObject) {
                 JSONObject modObj = (JSONObject) jsonObject.get(key);
 
@@ -80,9 +80,6 @@ public class RLoggerMaskingLayout extends PatternLayout {
                     modJsonObj(modObj, jsonKey, jsonValue);
                 }
             }
-
         }
-
-        return jsonObject;
     }
 }
