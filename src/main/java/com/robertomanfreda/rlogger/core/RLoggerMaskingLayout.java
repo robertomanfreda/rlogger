@@ -52,18 +52,19 @@ public class RLoggerMaskingLayout extends PatternLayout {
         Pattern jsonPattern = compiledPatterns.get(Syntax.JSON);
         Matcher jsonMatcher = jsonPattern.matcher(outMessage);
 
-        if (jsonMatcher.find()) {
+        if (loader.getConfig().getJson().getEnabled() && jsonMatcher.find()) {
             try {
                 String json = jsonMatcher.group(2);
                 JSONObject jsonObject = new JSONObject(json);
 
-                for (Mask mask : masks) {
-                    modJsonObj(jsonObject, mask.getTarget(), "***");
-                }
+                masks.forEach(mask ->
+                        modJsonObj(jsonObject, mask.getTarget(), loader.getConfig().getJson().getPlaceholder())
+                );
 
                 // Using indexed groups
-                String replacement = "$1\n" + jsonObject.toString(loader.getConfig().getJson().getIndentFactor()) + "$3";
-                outMessage = jsonMatcher.replaceAll(replacement);
+                String newJson = jsonObject.toString(loader.getConfig().getJson().getIndentFactor());
+                String grouped = "$1\n" + newJson + "\n$3";
+                outMessage = jsonMatcher.replaceAll(grouped);
             } catch (JSONException je) {
                 je.printStackTrace();
             }
@@ -73,20 +74,20 @@ public class RLoggerMaskingLayout extends PatternLayout {
     }
 
     // recursive
-    private static void modJsonObj(JSONObject jsonObject, String jsonKey, String jsonValue) {
+    private static void modJsonObj(JSONObject jsonObject, String targetKey, String replacementValue) {
         for (String key : jsonObject.keySet()) {
-            if (key.equals(jsonKey) && ((jsonObject.get(key) instanceof String)
+            if (key.equals(targetKey) && ((jsonObject.get(key) instanceof String)
                     || ((jsonObject.get(key) instanceof JSONArray
                     || (jsonObject.get(key) instanceof Number)
                     || jsonObject.get(key) == null)))) {
 
-                jsonObject.put(key, jsonValue);
+                jsonObject.put(key, replacementValue);
                 return;
             } else if (jsonObject.get(key) instanceof JSONObject) {
                 JSONObject modObj = (JSONObject) jsonObject.get(key);
 
                 if (modObj != null) {
-                    modJsonObj(modObj, jsonKey, jsonValue);
+                    modJsonObj(modObj, targetKey, replacementValue);
                 }
             }
         }

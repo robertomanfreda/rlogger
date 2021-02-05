@@ -76,10 +76,11 @@ config:
   json:
     enabled: true
     indentFactor: 4
+    placeholder: '*** This value has been obfuscated by RLogger ***'
 
 masks:
-  - GlossSeeAlso
   - Acronym
+  - GlossSeeAlso
 ```
 
 This will be the result in our logs:
@@ -107,7 +108,7 @@ This will be the result in our logs:
 ```
 
 The same stuff will happen if you are logging an "ugly" (all on the same line) json payload like this:      
-`{"glossary": {"title": "example glossary","GlossDiv": {"title": "S","GlossList": {"GlossEntry": {"ID": "SGML","SortAs": "SGML","GlossTerm": "Standard Generalized Markup Language","Acronym": "SGML","Abbrev": "ISO 8879:1986","GlossDef": {"para": "A meta-markup \"language\", used to create markup languages such as DocBook.","GlossSeeAlso": ["GML","XML"]},"GlossSee": "markup"}}}}}`
+```{"glossary": {"title": "example glossary","GlossDiv": {"title": "S","GlossList": {"GlossEntry": {"ID": "SGML","SortAs": "SGML","GlossTerm": "Standard Generalized Markup Language","Acronym": "SGML","Abbrev": "ISO 8879:1986","GlossDef": {"para": "A meta-markup \"language\", used to create markup languages such as DocBook.","GlossSeeAlso": ["GML","XML"]},"GlossSee": "markup"}}}}}```
 
 **Please note:**     
 Choosing an indentFactor value > 0 will automatically beautify the json payload across your logs.   

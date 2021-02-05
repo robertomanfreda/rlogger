@@ -27,6 +27,6 @@ class ConfigLoader {
     static class Json {
         private Boolean enabled = false;
         private Integer indentFactor = 0;
-
+        private String placeholder = "***";
     }
 }

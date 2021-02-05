@@ -2,6 +2,7 @@ config:
   json:
     enabled: true
     indentFactor: 4
+    placeholder: '*** This value has been obfuscated by RLogger ***'
 
 masks:
   - Acronym
