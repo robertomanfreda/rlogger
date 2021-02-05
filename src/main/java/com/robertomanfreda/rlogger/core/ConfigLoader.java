@@ -18,6 +18,15 @@ class ConfigLoader {
     @Data
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     static class Config {
+        private Json json;
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @Data
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    static class Json {
+        private Boolean enabled = false;
         private Integer indentFactor = 0;
+        private String placeholder = "***";
     }
 }

@@ -24,7 +24,7 @@ class RLoggerTest {
                 "  \"glossary\": {\n" +
                 "    \"title\": \"example glossary\",\n" +
                 "    \"GlossDiv\": {\n" +
-                "      \"title\": \"S\",\n" +
+                "      \"title\": \"BuonaSeraaa\",\n" +
                 "      \"GlossList\": {\n" +
                 "        \"GlossEntry\": {\n" +
                 "          \"ID\": \"SGML\",\n" +
@@ -33,7 +33,7 @@ class RLoggerTest {
                 "          \"Acronym\": \"SGML\",\n" +
                 "          \"Abbrev\": \"ISO 8879:1986\",\n" +
                 "          \"GlossDef\": {\n" +
-                "            \"para\": \"A meta-markup language, used to create \\\"markup\\\" languages such as DocBook.\",\n" +
+                "            \"para\": \"A meta-markup \\\"language\\\", used to create markup languages such as DocBook.\",\n" +
                 "            \"GlossSeeAlso\": [\n" +
                 "              \"GML\",\n" +
                 "              \"XML\"\n" +
