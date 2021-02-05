@@ -6,7 +6,7 @@
 
     <groupId>com.robertomanfreda</groupId>
     <artifactId>rlogger</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
 
     <properties>
         <java.version>14</java.version>

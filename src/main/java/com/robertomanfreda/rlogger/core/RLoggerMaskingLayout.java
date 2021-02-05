@@ -62,7 +62,7 @@ public class RLoggerMaskingLayout extends PatternLayout {
                 }
 
                 // Using indexed groups
-                String replacement = "$1\n" + jsonObject.toString(loader.getConfig().getIndentFactor()) + "$3";
+                String replacement = "$1\n" + jsonObject.toString(loader.getConfig().getJson().getIndentFactor()) + "$3";
                 outMessage = jsonMatcher.replaceAll(replacement);
             } catch (JSONException je) {
                 je.printStackTrace();

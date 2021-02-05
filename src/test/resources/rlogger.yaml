@@ -1,10 +1,8 @@
 config:
-  indentFactor: 4
+  json:
+    enabled: true
+    indentFactor: 4
 
 masks:
   - Acronym
-  - ID
-  - GlossSee
   - GlossSeeAlso
-  - SortAs
-  - para

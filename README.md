@@ -22,36 +22,93 @@ manner.
 # Setting up
 
 In order to import RLogger in your project you have to do 3 simple steps:
-  - Compile the project ```./mvnw -U clean package``` and import the jar in your project
-  - Create a logback.xml that uses ```RLoggerMaskingLayout``` as main logback layout
-  - Create a rlogger.yaml in your resource folder in order to explicit the key that you want to obfuscate
 
+- Compile the project ```./mvnw -U clean package``` and import the jar in your project
+- Create a logback.xml that uses ```RLoggerMaskingLayout``` as main logback layout
+- Create a rlogger.yaml in your resource folder in order to explicit the key that you want to obfuscate
 
-#### *logback.xml example*
-```xml
-<configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-            <layout class="com.robertomanfreda.rlogger.core.RLoggerMaskingLayout">
-                <pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
-            </layout>
-        </encoder>
-    </appender>
+A package distributed via Maven central will be available as soon as possible! Just be patient.
 
-    <root level="DEBUG">
-        <appender-ref ref="STDOUT"/>
-    </root>
-</configuration>
+---
+
+# SAMPLES
+
+Assuming we are logging a json payload like this:
+
+```json
+{
+  "glossary": {
+    "title": "example glossary",
+    "GlossDiv": {
+      "title": "S",
+      "GlossList": {
+        "GlossEntry": {
+          "ID": "SGML",
+          "SortAs": "SGML",
+          "GlossTerm": "Standard Generalized Markup Language",
+          "Acronym": "SGML",
+          "Abbrev": "ISO 8879:1986",
+          "GlossDef": {
+            "para": "A meta-markup \"language\", used to create markup languages such as DocBook.",
+            "GlossSeeAlso": [
+              "GML",
+              "XML"
+            ]
+          },
+          "GlossSee": "markup"
+        }
+      }
+    }
+  }
+}
 ```
 
-#### *rlogger.yaml example*
+We want to obfuscate some values, but values most of the time are dynamic, so for do that we need to refer to their
+keys.    
+For do that in RLogger we need to create a simple file, in our `src/main/resources` folder, called **rlogger.yaml**.  
+Referring to the json above, suppose we want to obfuscate the value referred to *Acronym* and the array named
+*GlossSeeAlso* we will use a file like this:
+
+**rlogger.yaml**
 
 ```yaml
+config:
+  json:
+    enabled: true
+    indentFactor: 4
+
 masks:
-  - foo
-  - bar
-  - baz
+  - GlossSeeAlso
+  - Acronym
 ```
 
-<!-- TODO post some examples here -->
-<!-- NOTE configuring the indentFactor using an int value > 0 the json string will be automatically beautified --> 
+This will be the result in our logs:
+
+```
+23:01:05.852 DEBUG c.r.rlogger.core.RLoggerTest - 
+{"glossary": {
+    "title": "example glossary",
+    "GlossDiv": {
+        "GlossList": {"GlossEntry": {
+            "GlossTerm": "Standard Generalized Markup Language",
+            "GlossSee": "markup",
+            "SortAs": "SGML",
+            "GlossDef": {
+                "para": "A meta-markup "language", used to create markup languages such as DocBook.",
+                "GlossSeeAlso": "***"
+            },
+            "ID": "SGML",
+            "Acronym": "***",
+            "Abbrev": "ISO 8879:1986"
+        }},
+        "title": "S"
+    }
+}}
+```
+
+The same stuff will happen if you are logging an "ugly" (all on the same line) json payload like this:      
+`{"glossary": {"title": "example glossary","GlossDiv": {"title": "S","GlossList": {"GlossEntry": {"ID": "SGML","SortAs": "SGML","GlossTerm": "Standard Generalized Markup Language","Acronym": "SGML","Abbrev": "ISO 8879:1986","GlossDef": {"para": "A meta-markup \"language\", used to create markup languages such as DocBook.","GlossSeeAlso": ["GML","XML"]},"GlossSee": "markup"}}}}}`
+
+**Please note:**     
+Choosing an indentFactor value > 0 will automatically beautify the json payload across your logs.   
+At the opposite side choosing the 0 value RLogger will not interfer with indentation.
