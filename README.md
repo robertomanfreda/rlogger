@@ -52,6 +52,3 @@ masks:
   - bar
   - baz
 ```
-
-<!-- TODO post some examples here -->
-<!-- NOTE configuring the indentFactor using an int value > 0 the json string will be automatically beautified --> 
