@@ -19,8 +19,9 @@ import java.util.regex.Pattern;
 
 public class RLoggerMaskingLayout extends PatternLayout {
 
-    private final static List<Mask> masks = new ArrayList<>();
-    private final static Map<Syntax, Pattern> compiledPatterns = new HashMap<>();
+    private static ConfigLoader loader;
+    private static final List<Mask> masks = new ArrayList<>();
+    private static final Map<Syntax, Pattern> compiledPatterns = new HashMap<>();
 
     // static initialization block
     static {
@@ -28,16 +29,17 @@ public class RLoggerMaskingLayout extends PatternLayout {
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
             mapper.findAndRegisterModules();
 
-            // Loading Masks from yaml putting them in the MasksLoader
-            // TODO I'm testing
-            MasksLoader loader = mapper.readValue(new File("src/test/resources/rlogger.yaml"),
-                    MasksLoader.class);
+            // TODO I'm just testing these file loading will be correctly handled in a second moment
+            File yamlConfig = new File("src/test/resources/rlogger.yaml");
+
+            // Loading configurations from yaml file
+            loader = mapper.readValue(yamlConfig, ConfigLoader.class);
 
             // Copying masks locally
             masks.addAll(loader.getMasks());
 
             // Pre-compiled patterns
-            compiledPatterns.put(Syntax.JSON, Pattern.compile("^([^{]+)(\\{[\\s\\S]+})([^{]+)"));
+            compiledPatterns.put(Syntax.JSON, Pattern.compile(RegexCollection.JSON_EXTRACTION_REGEX));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,7 +61,9 @@ public class RLoggerMaskingLayout extends PatternLayout {
                     modJsonObj(jsonObject, mask.getTarget(), "***");
                 }
 
-                outMessage = jsonMatcher.replaceAll("$1\n" + jsonObject.toString(2) + "$3");
+                // Using indexed groups
+                String replacement = "$1\n" + jsonObject.toString(loader.getConfig().getIndentFactor()) + "$3";
+                outMessage = jsonMatcher.replaceAll(replacement);
             } catch (JSONException je) {
                 je.printStackTrace();
             }
@@ -71,8 +75,7 @@ public class RLoggerMaskingLayout extends PatternLayout {
     // recursive
     private static void modJsonObj(JSONObject jsonObject, String jsonKey, String jsonValue) {
         for (String key : jsonObject.keySet()) {
-            if (key.equals(jsonKey)
-                    && ((jsonObject.get(key) instanceof String)
+            if (key.equals(jsonKey) && ((jsonObject.get(key) instanceof String)
                     || ((jsonObject.get(key) instanceof JSONArray
                     || (jsonObject.get(key) instanceof Number)
                     || jsonObject.get(key) == null)))) {

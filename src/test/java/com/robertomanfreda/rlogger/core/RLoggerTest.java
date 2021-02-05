@@ -10,10 +10,12 @@ class RLoggerTest {
 
     @BeforeEach
     void setUp() {
+        // do_nothing
     }
 
     @AfterEach
     void tearDown() {
+        // do_nothing
     }
 
     @Test
@@ -31,7 +33,7 @@ class RLoggerTest {
                 "          \"Acronym\": \"SGML\",\n" +
                 "          \"Abbrev\": \"ISO 8879:1986\",\n" +
                 "          \"GlossDef\": {\n" +
-                "            \"para\": \"A meta-markup language, used to create markup languages such as DocBook.\",\n" +
+                "            \"para\": \"A meta-markup language, used to create \\\"markup\\\" languages such as DocBook.\",\n" +
                 "            \"GlossSeeAlso\": [\n" +
                 "              \"GML\",\n" +
                 "              \"XML\"\n" +
