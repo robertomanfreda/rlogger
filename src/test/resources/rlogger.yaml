@@ -1,3 +1,6 @@
 masks:
   - Acronym
+  - ID
   - GlossSee
+  - GlossSeeAlso
+  - SortAs

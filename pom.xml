@@ -17,6 +17,7 @@
         <slf4j-api.version>1.7.30</slf4j-api.version>
         <commons-lang3.version>3.11</commons-lang3.version>
         <jackson-dataformat.version>2.12.1</jackson-dataformat.version>
+        <json.version>20201115</json.version>
         <jupiter.version>5.7.0</jupiter.version>
 
         <lombok.version>1.18.16</lombok.version>
@@ -51,6 +52,12 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson-dataformat.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${json.version}</version>
         </dependency>
 
         <dependency>
