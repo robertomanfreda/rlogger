@@ -19,16 +19,14 @@ manner.
 
 ## VERY IMPORTANT
 
-**Avoid using these characters in your logs
+**Avoid using these characters in your logs:**
 
-- {
-- }
-- <
-- >
+- `{`
+- `}`
+- `<`
+- `>`
 
-**
-
-Always opt for a simple syntax. Example:  
+**Always opt for a simple syntax**. Example:    
 ```logger.debug("SUCCESS - The json object {} has been succeffully converted", jsonObject);```  
 or  
 ```logger.info("SUCCESS - Access granted for User {}", xmlUser);```
