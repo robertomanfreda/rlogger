@@ -19,16 +19,14 @@ manner.
 
 ## VERY IMPORTANT
 
-**Avoid using these characters in your logs
+**Avoid using these characters in your logs:**
 
-- {
-- }
-- <
-- >
+- `{`
+- `}`
+- `<`
+- `>`
 
-**
-
-Always opt for a simple syntax. Example:  
+**Always opt for a simple syntax**. Example:    
 ```logger.debug("SUCCESS - The json object {} has been succeffully converted", jsonObject);```  
 or  
 ```logger.info("SUCCESS - Access granted for User {}", xmlUser);```
@@ -59,7 +57,7 @@ the following syntax:
   `private static final RLogger logger = new Rlogger();`
 - For builder lovers   
   `private static final RLogger logger = RLogger.builder.build();`
-- RLogger has also native support for lombok annotations  
+- RLogger has native support for lombok annotations  
   `@Slf4j` at class level. I love it.
 
 ---
