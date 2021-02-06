@@ -57,7 +57,7 @@ the following syntax:
   `private static final RLogger logger = new Rlogger();`
 - For builder lovers   
   `private static final RLogger logger = RLogger.builder.build();`
-- RLogger has also native support for lombok annotations  
+- RLogger has native support for lombok annotations  
   `@Slf4j` at class level. I love it.
 
 ---
