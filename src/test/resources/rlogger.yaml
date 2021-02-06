@@ -1,9 +1,18 @@
 config:
   json:
     enabled: true
-    indentFactor: 4
+    indentFactor: 2
+    placeholder: '*** This value has been obfuscated by RLogger ***'
+  xml:
+    enabled: true
+    indentFactor: 2
     placeholder: '*** This value has been obfuscated by RLogger ***'
 
 masks:
-  - Acronym
-  - GlossSeeAlso
+  json:
+    - Acronym
+    - GlossSeeAlso
+    - name
+  xml:
+    - price
+    - calories

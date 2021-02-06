@@ -24,12 +24,27 @@ manner.
 In order to import RLogger in your project you have to do 3 simple steps:
 
 - Compile the project ```./mvnw -U clean package``` and import the jar in your project
-- Create a logback.xml that uses ```RLoggerMaskingLayout``` as main logback layout
-- Create a rlogger.yaml in your resource folder in order to explicit the key that you want to obfuscate
+- Create a **logback.xml** (default file not provided by the library, you have total control about it) that uses
+  ```RLoggerMaskingLayout``` as main logback layout
+- Create a **rlogger.yaml** (default file not provided by the library, you have total control about it) in your resource
+  folder in order to explicit the key that you want to obfuscate
 
 A package distributed via Maven central will be available as soon as possible! Just be patient.
 
 ---
+
+# Creating loggers
+
+To create an instance of RLogger capable to log messages at different logging levels (all SLF4J's logging levels are
+supported because RLogger basically is a custom implementation of `org.slf4j.Logger` class) you just need to use one of
+the following syntax:
+
+- The classic way  
+  `private static final RLogger logger = new Rlogger();`
+- For builder lovers   
+  `private static final RLogger logger = RLogger.builder.build();`
+- RLogger has also native support for lombok annotations  
+  `@Slf4j` at class level. I love it.
 
 # SAMPLES
 
@@ -77,10 +92,19 @@ config:
     enabled: true
     indentFactor: 4
     placeholder: '*** This value has been obfuscated by RLogger ***'
+  xml:
+    enabled: true
+    indentFactor: 4
+    placeholder: '*** This value has been obfuscated by RLogger ***'
 
 masks:
-  - Acronym
-  - GlossSeeAlso
+  json:
+    - Acronym
+    - GlossSeeAlso
+    - name
+  xml:
+    - price
+    - calories
 ```
 
 This will be the result in our logs:
@@ -113,3 +137,6 @@ The same stuff will happen if you are logging an "ugly" (all on the same line) j
 **Please note:**     
 Choosing an indentFactor value > 0 will automatically beautify the json payload across your logs.   
 At the opposite side choosing the 0 value RLogger will not interfer with indentation.
+
+**As another note:**  
+JSON and XML are treated the same. 
