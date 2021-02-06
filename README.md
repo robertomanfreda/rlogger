@@ -17,6 +17,22 @@ threads who is capable to asynchronously enque and deque messages
 The logs order will be respected because the queue doesn't mix up the Runnable Objects but is capable to deque in a good
 manner.
 
+## VERY IMPORTANT
+
+**Avoid using these characters in your logs
+
+- {
+- }
+- <
+- >
+
+**
+
+Always opt for a simple syntax. Example:  
+```logger.debug("SUCCESS - The json object {} has been succeffully converted", jsonObject);```  
+or  
+```logger.info("SUCCESS - Access granted for User {}", xmlUser);```
+
 ---
 
 # Setting up
@@ -46,6 +62,8 @@ the following syntax:
 - RLogger has also native support for lombok annotations  
   `@Slf4j` at class level. I love it.
 
+---
+
 # SAMPLES
 
 Assuming we are logging a json payload like this:
@@ -55,7 +73,6 @@ Assuming we are logging a json payload like this:
   "glossary": {
     "title": "example glossary",
     "GlossDiv": {
-      "title": "S",
       "GlossList": {
         "GlossEntry": {
           "ID": "SGML",
@@ -125,8 +142,7 @@ This will be the result in our logs:
             "ID": "SGML",
             "Acronym": "*** This value has been obfuscated by RLogger ***",
             "Abbrev": "ISO 8879:1986"
-        }},
-        "title": "S"
+        }}
     }
 }}
 ```
@@ -136,7 +152,15 @@ The same stuff will happen if you are logging an "ugly" (all on the same line) j
 
 **Please note:**     
 Choosing an indentFactor value > 0 will automatically beautify the json payload across your logs.   
-At the opposite side choosing the 0 value RLogger will not interfer with indentation.
+At the opposite side choosing the 0 value RLogger will not interfer with indentation.  
+It is important to say that JSON and XML are treated the same way.
 
 **As another note:**  
-JSON and XML are treated the same. 
+The content of logs can be altered, the position can change because of marshalling and unmarshalling but it is really a
+minor problem I think.
+
+---
+
+# HOW TO CONTRIBUTE
+
+This section is not ready yet. It will be added as soon as possible.
